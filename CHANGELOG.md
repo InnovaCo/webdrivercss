@@ -1,10 +1,7 @@
 ## Release History
 
-## v1.1.10 (2015-12-19)
-* Adjust scrolling to better support sticky headers (#131)
-* Add option to tweak node-resemble-js image comparison (#121)
-* Screenshot height for different viewport widths (#120)
-* Replace falsy check of coordinates with proper numeric check (#117)
+## 2.0.0beta-rc1 (2015-10-28)
+* merged dev branch to make WebdriverCSS compatible with v3
 
 ## v1.1.9 (2015-09-11)
 * make screenshots high dpi aware

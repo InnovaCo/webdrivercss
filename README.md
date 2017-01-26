@@ -1,4 +1,4 @@
-WebdriverCSS [![Version](http://img.shields.io/badge/version-v1.1.10-brightgreen.svg)](https://www.npmjs.org/package/webdrivercss) [![Build Status](https://travis-ci.org/webdriverio/webdrivercss.png?branch=master)](https://travis-ci.org/webdriverio/webdrivercss) [![Coverage Status](https://coveralls.io/repos/webdriverio/webdrivercss/badge.png?branch=master)](https://coveralls.io/r/webdriverio/webdrivercss?branch=master) [![Join the chat at https://gitter.im/webdriverio/webdrivercss](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/webdriverio/webdrivercss?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+WebdriverCSS [![Version](http://img.shields.io/badge/version-v2.0.0beta-rc1-brightgreen.svg)](https://www.npmjs.org/package/webdrivercss) [![Build Status](https://travis-ci.org/webdriverio/webdrivercss.png?branch=master)](https://travis-ci.org/webdriverio/webdrivercss) [![Coverage Status](https://coveralls.io/repos/webdriverio/webdrivercss/badge.png?branch=master)](https://coveralls.io/r/webdriverio/webdrivercss?branch=master) [![Join the chat at https://gitter.im/webdriverio/webdrivercss](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/webdriverio/webdrivercss?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ============
 
 ---
@@ -166,9 +166,6 @@ available:
 * **remove** `String[]`<br>
   removes all elements queried by all kinds of different [WebdriverIO selector strategies](http://webdriver.io/guide/usage/selectors.html) (via `display: none`)
 
-* **ignore** `String`<br>
-  can be used to ignore color differences or differences caused by antialising artifacts in the screenshot comparison
-
 The following paragraphs will give you a more detailed insight how to use these options properly.
 
 ### Let your test fail when screenshots differ
@@ -192,31 +189,12 @@ describe('my website should always look the same',function() {
                 assert.ifError(err);
 
                 // this will break the test if screenshot is not within the mismatch tolerance
-                assert.ok(res.header[0].isWithinMisMatchTolerance);
+                assert.ok(res.isWithinMisMatchTolerance);
             })
             .call(done);
     });
 
     // ...
-```
-
-The `res` variable will be an object containing details on the screenshots taken. It will have properties matching each element name, and the value of those properties will contain an array of screenshots at each resolution.
-
-For example, the `res` object for the code above would be:
-
-```js
-{ 
-  header: [ 
-    {
-      baselinePath: 'webdrivercss/header.header.baseline.png',
-      message: 'mismatch tolerance not exceeded (~0), baseline didn\'t change',
-      misMatchPercentage: 0,
-      isExactSameImage: true,
-      isSameDimensions: true,
-      isWithinMisMatchTolerance: true
-    }
-  ]
-}
 ```
 
 ### [Applitools Eyes](http://applitools.com) Support
@@ -379,24 +357,6 @@ client
     });
 ```
 ![alt text](http://webdriver.io/images/webdrivercss/exclude2.png "Logo Title Text 1")
-
-### Tweak the image comparison
-
-If you experience problems with unstable comparison results you might want to try tweaking the algorithm.
-There are two options available: `colors` and `antialiasing`. `colors` might help you if you don't care about color differences on your page, while the `antialiasing` option can for example reduce unexpected differences on font or image edges:
-
-```js
-client
-    .url('http://tumblr.com/themes')
-    .webdrivercss('tumblrpage', {
-        name: 'startpage',
-        ignore: 'antialiasing',
-        screenWidth: [1200]
-    });
-```
-
-Note: This doesn't affect the taken screenshots, but only the comparison calculations.
-By setting this option you reduce the sensitivity of the comparison algorithm. Though it's unlikely this might cause layout changes to remain unnoticed.
 
 ### Keep an eye on mobile screen resolution
 
